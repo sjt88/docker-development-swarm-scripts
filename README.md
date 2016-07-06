@@ -1,7 +1,7 @@
 # Docker Development Swarm Scripts
 A set of bash scripts for use with Docker Machine which make creating, destroying and using a docker swarm cluster as simple as possible.
 
-These are for development purposes only and are *not* intented for use in production!
+These are for development purposes only and are **not** intented for use in production!
 
 ---
 
