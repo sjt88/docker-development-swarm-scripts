@@ -1,6 +1,13 @@
 # Docker Development Swarm Scripts
 A set of bash scripts for use with Docker Machine for creating & managing a docker swarm cluster for development/experimentation purposes.
 
+---
+
+## Prerequisites
+Install Docker Engine & Docker Machine
+
+--- 
+
 ## Create A Swarm Environment from scratch
 ```bash
 bash create_docker_swarm.sh
