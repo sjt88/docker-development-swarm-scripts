@@ -1,5 +1,7 @@
 # Docker Development Swarm Scripts
-A set of bash scripts for use with Docker Machine for creating & managing a docker swarm cluster for development/experimentation purposes.
+A set of bash scripts for use with Docker Machine which make creating, destroying and using a docker swarm cluster as simple as possible.
+
+These are for development purposes only and are **not** intented for use in production!
 
 ---
 
@@ -8,7 +10,7 @@ Install Docker Engine & Docker Machine
 
 --- 
 
-## Create A Swarm Environment from scratch
+## Set up a swarm cluster
 ```bash
 bash create_docker_swarm.sh
 ```
@@ -30,6 +32,14 @@ any subsequent `docker` commands in the terminal session will then be executed o
 
 To easily switch back to your local docker daemon just use `docker-machine env -u`
 
+## Tear Down
+```bash
+bash destroy_docker_swarm.sh
+```
+Removes all the machines created with create_docker_swarm.sh (complete tear down)
+
+---
+
 ## Create the swarm cluster containers
 ```bash
 bash start_docker_swarm.sh
@@ -41,12 +51,6 @@ Creates the swarm cluster containers after they have been removed from their ass
 bash stop_docker_swarm.sh
 ```
 rm -f on consul/swarm containers on all the machines set up with `create_docker_swarm.sh`
-
-## Remove the swarm machines
-```bash
-bash destroy_docker_swarm.sh
-```
-Removes all the machines created with create_docker_swarm.sh (complete tear down)
 
 ## Show the running containers on all machines
 ```bash
