@@ -24,7 +24,7 @@ The swarm will then be ready to use.
 
 ## Connect to the swarm manager
 ```bash
-bash set_docker_swarm_env.sh
+. ./set_docker_swarm_env.sh
 ```
 any subsequent `docker` commands in the terminal session will then be executed on the swarm.
 
