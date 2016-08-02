@@ -13,4 +13,6 @@ docker-machine ssh manager1 docker swarm init --advertise-addr $(docker-machine 
 echo "***********************************"
 echo "     joining workers to swarm      "
 echo "***********************************"
-eval "$(docker-machine ssh manager1 docker swarm join-token worker | sed -n '2,4p')"
+export DOCKERSWARM_JOIN_CMD="$(docker-machine ssh manager1 docker swarm join-token worker | sed -n '2,4p')"
+docker-machine ssh worker1 $DOCKERSWARM_JOIN_CMD
+docker-machine ssh worker2 $DOCKERSWARM_JOIN_CMD
