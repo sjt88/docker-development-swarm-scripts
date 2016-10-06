@@ -12,7 +12,7 @@ echo "***********************************"
 export DOCKERSWARM_JOIN_TOKEN="$(docker swarm join-token worker --quiet)"
 
 eval $(docker-machine env worker1)             \
-	&& echo "docker swarm join --token $DOCKERSWARM_JOIN_TOKEN $(docker-machine ip manager1):2377"\
+	&& docker swarm join --token $DOCKERSWARM_JOIN_TOKEN $(docker-machine ip manager1):2377 \
 	&& eval $(docker-machine env worker2)        \
 	&& docker swarm join --token $DOCKERSWARM_JOIN_TOKEN $(docker-machine ip manager1):2377 \
 	&& eval $(docker-machine env worker3)        \
