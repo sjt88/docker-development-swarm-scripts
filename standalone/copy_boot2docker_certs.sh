@@ -7,27 +7,10 @@ export MAKEDIR="mkdir /home/docker/certs"
 export COPY_CA="cp /var/lib/boot2docker/ca.pem /home/docker/certs/ca.pem"
 export COPY_CERT="cp /var/lib/boot2docker/server.pem /home/docker/certs/cert.pem"
 export COPY_KEY="cp /var/lib/boot2docker/server-key.pem /home/docker/certs/key.pem"
-docker-machine ssh manager $MAKEDIR
-docker-machine ssh manager $COPY_CA
-docker-machine ssh manager $COPY_CERT
-docker-machine ssh manager $COPY_KEY
-docker-machine ssh consul $MAKEDIR
-docker-machine ssh consul $COPY_CA
-docker-machine ssh consul $COPY_CERT
-docker-machine ssh consul $COPY_KEY
-docker-machine ssh agent1 $MAKEDIR
-docker-machine ssh agent1 $COPY_CA
-docker-machine ssh agent1 $COPY_CERT
-docker-machine ssh agent1 $COPY_KEY
-docker-machine ssh agent2 $MAKEDIR
-docker-machine ssh agent2 $COPY_CA
-docker-machine ssh agent2 $COPY_CERT
-docker-machine ssh agent2 $COPY_KEY
-docker-machine ssh agent3 $MAKEDIR
-docker-machine ssh agent3 $COPY_CA
-docker-machine ssh agent3 $COPY_CERT
-docker-machine ssh agent3 $COPY_KEY
-docker-machine ssh agent4 $MAKEDIR
-docker-machine ssh agent4 $COPY_CA
-docker-machine ssh agent4 $COPY_CERT
-docker-machine ssh agent4 $COPY_KEY
+
+for machine_name in $(docker-machine ls | grep swarm- | awk '{print $1}'); do
+	docker-machine ssh $machine_name $MAKEDIR
+	docker-machine ssh $machine_name $COPY_CA
+	docker-machine ssh $machine_name $COPY_CERT
+	docker-machine ssh $machine_name $COPY_KEY
+done
