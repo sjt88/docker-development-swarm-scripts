@@ -93,6 +93,9 @@ echo "     "
 echo "       $ sudo mkdir /etc/docker/certs.d/$(docker-machine ip registry):5000"
 echo "       $ sudo cp registry/ca.pem /etc/docker/certs.d/$(docker-machine ip registry):5000/ca.crt"
 echo "     "
+echo "     You should then be able to push to your registry:"
+echo "       $ docker pull nginx && docker tag nginx $(docker-machine ip registry):5000/nginx"
+echo "       $ docker push $(docker-machine ip registry):5000/nginx"
 echo "-------------------------------------------------------"
 
 
