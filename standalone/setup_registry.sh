@@ -1,8 +1,10 @@
-# sets up swarm machines to use a docker registry
+# sets up swarm machines to use an external docker registry
 # - copies & installs registry ca cert
 # - adds registry hostname/ip to machines hosts file
-
-. ./registry_env.sh
+# 
+# Usage:
+# source registry_env.sh
+# bash setup_registry.sh
 
 for machine_name in $(docker-machine ls | grep swarm- | awk '{print $1}'); do
   docker-machine ssh $machine_name "sudo mkdir /etc/docker/certs.d; sudo mkdir /etc/docker/certs.d/$CERTSD_FOLDER"
