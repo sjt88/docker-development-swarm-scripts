@@ -1,4 +1,4 @@
-# docker-machine create -d virtualbox registry
+docker-machine create -d virtualbox registry
 eval $(docker-machine env registry)
 # remove any previous stuff
 rm -r ./registry
@@ -82,6 +82,11 @@ docker run -d \
 -e REGISTRY_HTTP_TLS_KEY=/certs/registry.key.pem \
 registry:2
 
+echo "-------------------------------------------------------"
+echo "     copying ca to all machines"
+echo "-------------------------------------------------------"
+bash setup_registry.sh
+
 echo "     "
 echo "     "
 echo "-------------------------------------------------------"
@@ -91,7 +96,7 @@ echo "     To push to the registry you will need to install the ca cert by doing
 echo "       $ sudo mkdir /etc/docker/certs.d/   # not necessary if the folder already exists"
 echo "     "
 echo "       $ sudo mkdir /etc/docker/certs.d/$(docker-machine ip registry):5000"
-echo "       $ sudo cp registry/ca.pem /etc/docker/certs.d/$(docker-machine ip registry):5000/ca.crt"
+echo "       $ sudo cp registry/ca/ca.pem /etc/docker/certs.d/$(docker-machine ip registry):5000/ca.crt"
 echo "     "
 echo "     You should then be able to push to your registry:"
 echo "       $ docker pull nginx && docker tag nginx $(docker-machine ip registry):5000/nginx"

@@ -61,5 +61,7 @@ docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery con
 & docker-machine create -d virtualbox --swarm --swarm-discovery consul://$(docker-machine ip swarm-consul-0):8500 swarm-agent-2
 wait
 
+bash ./start_registry.sh
+
 eval $(docker-machine env --swarm swarm-master-0)
 docker info && echo "Swarm cluster created"
