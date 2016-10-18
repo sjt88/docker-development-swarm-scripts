@@ -10,6 +10,5 @@ for machine_name in $(docker-machine ls | grep swarm- | awk '{print $1}'); do
   docker-machine scp ./registry/ca/ca.pem $machine_name:/home/docker/ca.crt
   docker-machine ssh $machine_name "sudo mv /home/docker/ca.crt /etc/docker/certs.d/$REGISTRY_IP/ca.crt"
   docker-machine ssh $machine_name "sudo cat /etc/hosts > /home/docker/hosts"
-  docker-machine ssh $machine_name 'echo "$HOST_IP $HOSTNAME" >> /home/docker/hosts'
   docker-machine ssh $machine_name "sudo mv /home/docker/hosts /etc/hosts"
 done
