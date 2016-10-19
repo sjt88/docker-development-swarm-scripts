@@ -62,7 +62,7 @@ echo "     certs copied to /certs on registry machine"
 echo "-------------------------------------------------------"
 echo "     setting up registry machine daemon"
 echo "-------------------------------------------------------"
-set up daemon on registry machines to allow it to use its own registry & add development_registry to hosts files
+# set up daemon on registry machines to allow it to use its own registry & add development_registry to hosts files
 docker-machine ssh registry "sudo mkdir /etc/docker/certs.d; sudo mkdir /etc/docker/certs.d/development_registry:5000"
 docker-machine ssh registry "sudo cp /certs/ca.pem /etc/docker/certs.d/development_registry:5000/ca.crt"
 docker-machine ssh registry "sudo cat /etc/hosts > /home/docker/hosts"
