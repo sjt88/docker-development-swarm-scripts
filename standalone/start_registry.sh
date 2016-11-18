@@ -14,9 +14,9 @@ echo "     building openssl.cnf"
 echo "-------------------------------------------------------"
 # add valid IP SANS to openssl.cnf
 export IP=$(docker-machine ip registry)
-echo "     IP.1=$IP" >> ./registry/ca/openssl.cnf
-echo "     DNS.1=localhost" >> ./registry/ca/openssl.cnf
-echo "     DNS.2=development_registry" >> ./registry/ca/openssl.cnf
+echo "IP.1=$IP" >> ./registry/ca/openssl.cnf
+echo "DNS.1=localhost" >> ./registry/ca/openssl.cnf
+echo "DNS.2=development_registry" >> ./registry/ca/openssl.cnf
 
 # generate registry key
 echo "-------------------------------------------------------"

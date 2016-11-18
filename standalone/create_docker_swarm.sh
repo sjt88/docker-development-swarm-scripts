@@ -52,13 +52,16 @@ docker run -it -d --name consul \
 -e CONSUL_CLIENT_INTERFACE=eth0 \
 consul agent -server -retry-join $(docker-machine ip swarm-consul-0):8301 -advertise $(docker-machine ip swarm-consul-2)
 
+export CONSUL_ADDR=consul://$(docker-machine ip swarm-consul-0):8500
+export ENGINE_OPTS=
+export SWARM_DISCOVERY_OPTS="--swarm-discovery $CONSUL_ADDR"
 
-docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery consul://$(docker-machine ip swarm-consul-0):8500 swarm-master-0 \
-& docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery consul://$(docker-machine ip swarm-consul-0):8500 swarm-master-1 \
-& docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery consul://$(docker-machine ip swarm-consul-0):8500 swarm-master-2 \
-& docker-machine create -d virtualbox --swarm --swarm-discovery consul://$(docker-machine ip swarm-consul-0):8500 swarm-agent-0 \
-& docker-machine create -d virtualbox --swarm --swarm-discovery consul://$(docker-machine ip swarm-consul-0):8500 swarm-agent-1 \
-& docker-machine create -d virtualbox --swarm --swarm-discovery consul://$(docker-machine ip swarm-consul-0):8500 swarm-agent-2
+docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery $CONSUL_ADDR --engine-opt="cluster-store=$CONSUL_ADDR" --engine-opt="cluster-advertise=eth1:2376" swarm-master-0 \
+  & docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery $CONSUL_ADDR --engine-opt="cluster-store=$CONSUL_ADDR" --engine-opt="cluster-advertise=eth1:2376" swarm-master-1 \
+  & docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery $CONSUL_ADDR --engine-opt="cluster-store=$CONSUL_ADDR" --engine-opt="cluster-advertise=eth1:2376" swarm-master-2 \
+  & docker-machine create -d virtualbox --swarm --swarm-discovery $CONSUL_ADDR --engine-opt="cluster-store=$CONSUL_ADDR" --engine-opt="cluster-advertise=eth1:2376" swarm-agent-0 \
+  & docker-machine create -d virtualbox --swarm --swarm-discovery $CONSUL_ADDR --engine-opt="cluster-store=$CONSUL_ADDR" --engine-opt="cluster-advertise=eth1:2376" swarm-agent-1 \
+  & docker-machine create -d virtualbox --swarm --swarm-discovery $CONSUL_ADDR --engine-opt="cluster-store=$CONSUL_ADDR" --engine-opt="cluster-advertise=eth1:2376" swarm-agent-2
 wait
 
 bash ./start_registry.sh
