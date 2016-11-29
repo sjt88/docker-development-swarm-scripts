@@ -1,5 +1,1 @@
-docker-machine rm manager1 -f -y & \
-docker-machine rm worker1 -f -y & \
-docker-machine rm worker2 -f -y & \
-docker-machine rm worker3 -f -y
-wait
+docker-machine rm  -y $(docker-machine ls | grep "manager\|worker" | awk '{printf " %s", $1}')
